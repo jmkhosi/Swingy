@@ -1,0 +1,3 @@
+Alexandra the Great, Hero, 2, 540, tall sword, Laminar amour
+Donovan the Dark warrior, Warrior, 10, 660, bow and arrow, Mail armour
+Thor the Mighty, Knight, 6, 990, hammer, Mail armour
