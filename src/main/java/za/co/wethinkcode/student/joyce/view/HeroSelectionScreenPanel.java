@@ -15,13 +15,8 @@ public class HeroSelectionScreenPanel extends JPanel{
     private JLabel heroClass = new JLabel("Class:");
     private JComboBox<String> classesComboBox = new JComboBox<>(heroClasses);
 
-
-
     JButton startGame = new JButton("Start Game");
     JButton previousScr = new JButton("Previous Screen");
-
-
-
 
     public HeroSelectionScreenPanel() {
         setBackground(Color.LIGHT_GRAY);
@@ -49,7 +44,6 @@ public class HeroSelectionScreenPanel extends JPanel{
 
 
 
-
         add(label);
         add(heroStats);
         add(inputName);
@@ -57,6 +51,12 @@ public class HeroSelectionScreenPanel extends JPanel{
         add(startGame);
         add(previousScr);
 
+
+
+    }
+
+    public void addComboBoxListener(ActionListener comboBoxListener){
+        classesComboBox.addActionListener(comboBoxListener);
     }
 
     /*public void addHeroOneActionListener(ActionListener btn)

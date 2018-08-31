@@ -1,12 +1,21 @@
 package za.co.wethinkcode.student.joyce.controller;
 
+import za.co.wethinkcode.student.joyce.model.Game;
 import za.co.wethinkcode.student.joyce.view.*;
 
 import javax.swing.*;
 
 public class GUIController {
 
+    public Game game;
+
     GUIView guiView;
+
+    public GUIController(Game game) {
+
+       this.game = game;
+    }
+
 
     public void startGame() {
         SwingUtilities.invokeLater(new Runnable() {
@@ -20,7 +29,7 @@ public class GUIController {
 
     public void showGameArena(){
 
-        GameArenaScreenPanel gameArenaScreenPanel = new GameArenaScreenPanel();
+        GameArenaScreenPanel gameArenaScreenPanel = new GameArenaScreenPanel(game);
         GameArenaScreenController gameArenaScreenController = new GameArenaScreenController(this, gameArenaScreenPanel);
         switchPanelInMainWindow(gameArenaScreenPanel);
     }

@@ -1,5 +1,7 @@
 package za.co.wethinkcode.student.joyce.view;
 
+import za.co.wethinkcode.student.joyce.model.Game;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -13,9 +15,9 @@ public class GameArenaScreenPanel extends JPanel {
     JButton southbtn = new JButton("South");
 
 
-    public GameArenaScreenPanel() {
+    public GameArenaScreenPanel(Game game) {
         this.setBackground(Color.cyan);
-        MapPanel arena = new MapPanel();
+        MapPanel arena = new MapPanel(game);
         this.add(arena);
 
         SpringLayout layout = new SpringLayout();
@@ -44,21 +46,23 @@ public class GameArenaScreenPanel extends JPanel {
 
 
 
-
-
     }
 
-    public class MapPanel extends JPanel{
-        MapPanel(){
-            int mapSize = 9;
 
-            this.setLayout(new GridLayout(9,9));
+    public class MapPanel extends JPanel{
+        MapPanel(Game game){
+
+
+
+
+
+            this.setLayout(new GridLayout(game.mapsize, game.mapsize));
             this.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.BLUE));
             this.setBackground(Color.orange);
             this.setPreferredSize(new Dimension(600, 600));
             add(new TilePanel());
 
-            int numberOfTiles = 81;
+            int numberOfTiles = game.mapsize * game.mapsize;
             for( int i = 1; i < numberOfTiles; i++ ){
                 TilePanel tile = new TilePanel();
                 this.add(tile);
@@ -73,6 +77,8 @@ public class GameArenaScreenPanel extends JPanel {
         }
 
     }
+
+
 
 
 
