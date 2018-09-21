@@ -2,7 +2,7 @@ package za.co.wethinkcode.student.joyce;
 
 import za.co.wethinkcode.student.joyce.controller.GameControllerManager;
 
-public class main {
+public class Main {
 
 
 

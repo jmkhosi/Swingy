@@ -1,15 +1,13 @@
 package za.co.wethinkcode.student.joyce.model.characters;
 
-import com.sun.tools.javac.util.Position;
 
 public class Enemy extends Player{
 
     public String winningMessage;
     public String losingMessage;
 
-    public Enemy(String name, int level, int experience, int attack, int hitPoint, int defence, Position position) {
 
-        super(name, level, experience, attack, hitPoint, defence, position, CharacterType.ENEMY);
+    public Enemy() {
     }
 
     public void setWinningMessage(String winningMessage) {

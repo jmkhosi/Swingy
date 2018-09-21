@@ -1,6 +1,7 @@
 package za.co.wethinkcode.student.joyce.controller;
 
 import za.co.wethinkcode.student.joyce.model.Game;
+import za.co.wethinkcode.student.joyce.model.characters.Hero;
 import za.co.wethinkcode.student.joyce.view.*;
 
 import javax.swing.*;
@@ -12,8 +13,8 @@ public class GUIController {
     GUIView guiView;
 
     public GUIController(Game game) {
-
        this.game = game;
+
     }
 
 
@@ -27,10 +28,20 @@ public class GUIController {
         });
     }
 
-    public void showGameArena(){
+    /*public void ExitGame(){
 
+        //GUIView gview = new GUIView();
         GameArenaScreenPanel gameArenaScreenPanel = new GameArenaScreenPanel(game);
-        GameArenaScreenController gameArenaScreenController = new GameArenaScreenController(this, gameArenaScreenPanel);
+        ExitGameController egame = new ExitGameController(this, gameArenaScreenPanel);
+
+        System.exit(0);
+    }*/
+
+    public void showGameArena(Hero hero){
+
+        GameArenaScreenPanel gameArenaScreenPanel = new GameArenaScreenPanel(game, hero);
+        game.hero = hero;
+        GameArenaScreenController gameArenaScreenController = new GameArenaScreenController(this, gameArenaScreenPanel, game);
         switchPanelInMainWindow(gameArenaScreenPanel);
     }
 
@@ -61,4 +72,9 @@ public class GUIController {
     private void switchPanelInMainWindow(JPanel panel) {
         guiView.switchPanel(panel);
     }
+
+
+
 }
+
+

@@ -6,10 +6,10 @@ import za.co.wethinkcode.student.joyce.model.Game;
 public class GameControllerManager {
     public void initGame(InterfaceType interfaceType) {
 
-        Game games = new Game();
+        Game game = new Game();
 
         if (interfaceType == InterfaceType.GUI) {
-            GUIController controller = new GUIController(games);
+            GUIController controller = new GUIController(game);
             controller.startGame();
         }
     }

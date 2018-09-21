@@ -9,6 +9,7 @@ public class GUIView {
 
     public GUIView() {
 
+        mainWndow.setTitle("Start");
         mainWndow.setSize(new Dimension(1000, 900));
         mainWndow.setResizable(true);
         mainWndow.setVisible(true);

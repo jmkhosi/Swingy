@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 public class HomeScreenPanel extends JPanel {
 
+    JLabel label = new JLabel("Welcome to Lengends");
+
     JButton newHero = new JButton("New Game");
     JButton loadBtn = new JButton("Load Game");
 

@@ -2,17 +2,18 @@ package za.co.wethinkcode.student.joyce.model.characters;
 
 import java.awt.*;
 
-public class Orc extends Enemy {
+public class Elf extends Hero{
 
-    public Orc()
+    public Elf(String name)
     {
-        name = "Orc";
+        this.name = name;
         level = 0;
-        experience = 0;
+        experience = 10;
         attack = 30;
         hitPoint = 10;
         defence = 35;
-        position = new Point(0,0);
+        position = new Point(0, 0);
         charactertype = CharacterType.HERO;
+        heroClassType = "Elf";
     }
 }

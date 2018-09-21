@@ -1,12 +1,12 @@
 package za.co.wethinkcode.student.joyce.model.characters;
 
 
-import com.sun.tools.javac.util.Position;
+import java.awt.*;
 
 public class Villain extends Enemy {
 
-    public Villain(String name, int level, int experience, int attack, int hitPoint, int defence, Position position)
+    public Villain()
     {
-        super(name, level, experience, attack, hitPoint, defence, position);
+
     }
 }

@@ -1,11 +1,19 @@
 package za.co.wethinkcode.student.joyce.model.characters;
 
-import com.sun.tools.javac.util.Position;
+import java.awt.*;
 
 public class Warrior extends Hero {
 
-    public Warrior(String name, int level, int experience, int attack, int hitPoint, int defence, Position position)
+    public Warrior(String name)
     {
-        super(name, level, experience, attack, hitPoint, defence, position);
+        this.name = name;
+        level = 0;
+        experience = 2;
+        attack = 30;
+        hitPoint = 10;
+        defence = 35;
+        position = new Point(0, 0);
+        charactertype = CharacterType.HERO;
+        heroClassType = "Warrior";
     }
 }

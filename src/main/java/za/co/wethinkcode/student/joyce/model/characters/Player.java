@@ -1,6 +1,8 @@
 package za.co.wethinkcode.student.joyce.model.characters;
 
-import com.sun.tools.javac.util.Position;
+import java.awt.*;
+
+import java.awt.*;
 
 public class Player {
 
@@ -10,11 +12,11 @@ public class Player {
         public int attack;
         public int hitPoint;
         public int defence;
-        public Position position;
+        public Point position;
         public CharacterType charactertype;
 
 
-        public Player(String name, int level, int experience, int attack, int hitPoint, int defence, Position position, CharacterType charactertype)
+        public Player(String name, int level, int experience, int attack, int hitPoint, int defence, Point position, CharacterType charactertype)
         {
            this.name = name;
            this.level = level;
@@ -25,4 +27,8 @@ public class Player {
            this.position = position;
            this.charactertype = charactertype;
         }
+
+    public Player() {
+
+    }
 }
