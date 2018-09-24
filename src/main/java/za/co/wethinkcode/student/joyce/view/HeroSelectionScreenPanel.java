@@ -9,15 +9,17 @@ import java.awt.event.ActionListener;
 
 public class HeroSelectionScreenPanel extends JPanel{
 
+
     JLabel label = new JLabel("   Choose Your Desired Hero Name");
     JTextField inputName = new JTextField(" ",15);
     private String[] heroClasses = {"Warrior", "Knight", "Elf"};
     private JComboBox<String> classesComboBox = new JComboBox<>(heroClasses);
     private JEditorPane infoPane = new JEditorPane();
     JButton startGame = new JButton("Start Game");
-    JButton previousScr = new JButton("Previous Screen");
+    JButton previousScr = new JButton("Previous Page");
 
     public HeroSelectionScreenPanel() {
+
         setBackground(Color.LIGHT_GRAY);
         SpringLayout layout = new SpringLayout();
         setLayout(layout);

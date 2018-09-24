@@ -7,6 +7,7 @@ import za.co.wethinkcode.student.joyce.model.characters.Orc;
 import za.co.wethinkcode.student.joyce.model.characters.Player;
 import za.co.wethinkcode.student.joyce.view.GameArenaScreenPanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,18 +21,21 @@ public class GameArenaScreenController {
     Game game;
 
     public GameArenaScreenController(GUIController guiController, GameArenaScreenPanel gameArenaScreenPanel, Game game) {
+
         this.gameArenaScreenPanel = gameArenaScreenPanel;
         this.guiController = guiController;
         this.game = game;
         initGame();
         gameArenaScreenPanel.addPRVScreenActionListener(btnPRVScreenListener);
-        gameArenaScreenPanel.addNewNorthActionListener(addNewNorthActionListener);
-        gameArenaScreenPanel.addNewSouthActionListener(addNewSouthActionListener);
-        gameArenaScreenPanel.addNewEastActionListener(addNewEastActionListener);
-        gameArenaScreenPanel.addNewWestActionListener(addNewWestActionListener);
+        gameArenaScreenPanel.addNewNorthActionListener(btnNewNorthActionListener);
+        gameArenaScreenPanel.addNewSouthActionListener(btnNewSouthActionListener);
+        gameArenaScreenPanel.addNewEastActionListener(btnNewEastActionListener);
+        gameArenaScreenPanel.addNewWestActionListener(btnNewWestActionListener);
+        gameArenaScreenPanel.addExitGameActionListener(btnExitGameListener);
     }
 
     public void initGame() {
+
         placeHeroInTheCenter();
         createMap();
         createEnemies();
@@ -88,7 +92,6 @@ public class GameArenaScreenController {
     }
 
     private void placeHeroInTheCenter() {
-
         Hero hero = game.hero;
         Point position = hero.position;
         position.x = game.mapsize / 2;
@@ -104,15 +107,89 @@ public class GameArenaScreenController {
     };
 
 
-
     private void playerwon() {
-        System.out.println("PLayer won");
 
+        JFrame playerwon = new JFrame("Game Result");
+        JOptionPane.showMessageDialog(playerwon,"Player Won");
+    }
+
+    private void playerlost() {
+
+        JFrame playerlost = new JFrame("Game Result");
+        JOptionPane.showMessageDialog(playerlost,"Player Lost");
         System.exit(0);
     }
 
+    private void runAway() {
 
-    ActionListener addNewNorthActionListener = new ActionListener() {
+        System.out.println("Player ran | not implemented");
+    }
+
+    public void fight() {
+        Point position = game.hero.position;
+
+        Player enemy = game.map[position.y][position.x];
+        Player hero = game.hero;
+
+        while (enemy.hitPoint > 0 && hero.hitPoint > 0 ){
+            attack(hero, enemy);
+            attack(enemy, hero);
+        }
+
+        if (hero.hitPoint > enemy.hitPoint) {
+
+            playerwon();
+            updateExperience();
+            levelUp(hero);
+            putHeroIntoTheMap();
+            updateMap();
+        }
+        else
+        {
+            playerlost();
+            System.exit(0);
+        }
+    }
+
+    private void levelUp(Player hero) {
+
+        for (int level = 0; level < 50; level++) {
+            int requiredExperience  = (level-1)*5+10-(level%2);
+            if (hero.experience <= requiredExperience)
+                hero.level = level;
+        }
+    }
+
+    private void updateExperience() {
+        Hero hero = game.hero;
+        hero.experience =+ 100;
+    }
+
+    public void attack(Player playerOne, Player playerTwo){
+        int totalAttack = playerOne.attack - playerTwo.defence;
+        totalAttack += getRandomAttack();
+        playerTwo.hitPoint -= totalAttack;
+    }
+
+    private int getRandomAttack() {
+        Random random = new Random();
+
+        return random.nextInt(70)+ 30;
+    }
+
+
+    private boolean isHeroInABattle() {
+
+        Point position = game.hero.position;
+        Player player = game.map[position.y][position.x];
+
+        if (player == null)
+            return false;
+        return true;
+    }
+
+
+    ActionListener btnNewNorthActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -144,73 +221,8 @@ public class GameArenaScreenController {
         }
     } ;
 
-    private void runAway() {
-        System.out.println("PLayer ran | not implemented");
 
-    }
-
-    private void fight() {
-        Point position = game.hero.position;
-
-        Player enemy = game.map[position.y][position.x];
-        Player hero = game.hero;
-
-        while (enemy.hitPoint > 0 && hero.hitPoint > 0 ){
-            attack(hero, enemy);
-            attack(enemy, hero);
-        }
-
-        if (hero.hitPoint > enemy.hitPoint) {
-            System.out.println("PLayer won");
-            updateExperience();
-            levelUp(hero);
-            putHeroIntoTheMap();
-            updateMap();
-        }
-        else
-        {
-            System.out.println("PLayer lost");
-            System.exit(0);
-        }
-    }
-
-    private void levelUp(Player hero) {
-        for (int level = 0; level < 50; level++) {
-            int requiredExperience  = (level-1)*5+10-(level%2);
-            if (hero.experience <= requiredExperience)
-                hero.level = level;
-        }
-    }
-
-    private void updateExperience() {
-        Hero hero = game.hero;
-        hero.experience =+ 100;
-    }
-
-    public void attack(Player playerOne, Player playerTwo){
-        int totalAttack = playerOne.attack - playerTwo.defence;
-        totalAttack += getRandomAttack();
-        playerTwo.hitPoint -= totalAttack;
-    }
-
-    private int getRandomAttack() {
-        Random random = new Random();
-
-        return random.nextInt(70)+ 30;
-    }
-
-
-    private boolean isHeroInABattle() {
-        Point position = game.hero.position;
-        Player player = game.map[position.y][position.x];
-
-        if (player == null)
-            return false;
-        return true;
-    }
-
-
-    ActionListener addNewSouthActionListener = new ActionListener() {
+    ActionListener btnNewSouthActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -221,16 +233,28 @@ public class GameArenaScreenController {
             if (tempY < game.mapsize){
 
                 game.hero.position.y++;
-                putHeroIntoTheMap();
-                updateMap();
 
+                if (isHeroInABattle())
+                {
+                    String results = gameArenaScreenPanel.showBattleOption();
+
+                    if (results.equals("Fight"))
+                        fight();
+                    else
+                        runAway();
+                }
+                else
+                {
+                    putHeroIntoTheMap();
+                    updateMap();
+                }
             }
             else playerwon();
 
         }
     };
 
-    ActionListener addNewEastActionListener = new ActionListener(){
+    ActionListener btnNewEastActionListener = new ActionListener(){
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -242,16 +266,27 @@ public class GameArenaScreenController {
             if (tempX < game.mapsize){
 
                 game.hero.position.x++;
-                putHeroIntoTheMap();
-                updateMap();
 
+                if (isHeroInABattle())
+                {
+                    String res = gameArenaScreenPanel.showBattleOption();
+
+                    if (res.equals("Fight"))
+                        fight();
+                    else
+                        runAway();
+                }
+                else
+                {
+                    putHeroIntoTheMap();
+                    updateMap();
+                }
             }
             else playerwon();
-
         }
     };
 
-    ActionListener addNewWestActionListener = new ActionListener(){
+    ActionListener btnNewWestActionListener = new ActionListener(){
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -263,13 +298,31 @@ public class GameArenaScreenController {
             if (tempX >= 0){
 
                 game.hero.position.x--;
-                putHeroIntoTheMap();
-                updateMap();
+                if (isHeroInABattle())
+                {
+                    String results = gameArenaScreenPanel.showBattleOption();
 
+                    if (results.equals("Fight"))
+                        fight();
+                    else
+                        runAway();
+                }
+                else
+                {
+                    putHeroIntoTheMap();
+                    updateMap();
+                }
             }
             else playerwon();
 
+        }
+    };
 
+    ActionListener btnExitGameListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            System.exit(0);
         }
     };
 

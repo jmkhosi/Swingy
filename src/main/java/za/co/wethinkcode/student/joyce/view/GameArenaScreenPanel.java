@@ -3,7 +3,6 @@ package za.co.wethinkcode.student.joyce.view;
 import za.co.wethinkcode.student.joyce.model.Game;
 import za.co.wethinkcode.student.joyce.model.characters.Hero;
 import za.co.wethinkcode.student.joyce.model.characters.Player;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -25,7 +24,7 @@ public class GameArenaScreenPanel extends JPanel {
 
 
     public GameArenaScreenPanel(Game game, Hero hero) {
-        this.setBackground(Color.cyan);
+        this.setBackground(Color.PINK);
 
         mapPanel = new MapPanel(game, hero);
         this.add(mapPanel);
@@ -79,7 +78,6 @@ public class GameArenaScreenPanel extends JPanel {
         return result;
     }
 
-
     public class MapPanel extends JPanel {
         MapPanel(Game game, Hero hero) {
 
@@ -117,7 +115,6 @@ public class GameArenaScreenPanel extends JPanel {
         mapPanel.updateMap(game);
     }
 
-
     public class TilePanel extends JPanel {
         JLabel label = new JLabel();
 
@@ -126,7 +123,6 @@ public class GameArenaScreenPanel extends JPanel {
             this.setBackground(Color.lightGray);
             this.add(label);
         }
-
     }
 
     public void addPRVScreenActionListener(ActionListener btn) {
@@ -135,27 +131,23 @@ public class GameArenaScreenPanel extends JPanel {
 
     public void addNewNorthActionListener(ActionListener btn) {
         northbtn.addActionListener(btn);
-
     }
-
-
 
     public void addNewSouthActionListener(ActionListener btn) {
         southbtn.addActionListener(btn);
-
     }
 
     public void addNewEastActionListener(ActionListener btn) {
         eastbtn.addActionListener(btn);
-
     }
 
     public void addNewWestActionListener(ActionListener btn) {
         westbtn.addActionListener(btn);
-
     }
 
-
+    public void addExitGameActionListener(ActionListener btn) {
+        exitbtn.addActionListener(btn);
+    }
 
 }
 
